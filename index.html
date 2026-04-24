@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>آلة حاسبة بادي</title>
+    <style>
+        body { background: #000; color: #fff; font-family: sans-serif; display: flex; align-items: flex-end; justify-content: center; height: 100vh; margin: 0; padding-bottom: 20px; }
+        .calc { width: 95%; max-width: 400px; }
+        #display { width: 100%; height: 120px; text-align: right; font-size: 60px; border: none; background: none; color: #fff; outline: none; padding: 10px; box-sizing: border-box; }
+        .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 10px; }
+        button { height: 80px; border-radius: 50%; border: none; font-size: 28px; cursor: pointer; transition: 0.1s; outline: none; }
+        .num { background: #333; color: #fff; }
+        .op { background: #FF9F0A; color: #fff; }
+        .func { background: #A5A5A5; color: #000; }
+        button:active { background: #777; }
+    </style>
+</head>
+<body>
+<div class="calc">
+    <input type="text" id="display" placeholder="0" readonly>
+    <div class="buttons">
+        <button class="func" onclick="c()">AC</button>
+        <button class="func" onclick="p('/')">÷</button>
+        <button class="func" onclick="p('%')">%</button>
+        <button class="op" onclick="p('/')">÷</button>
+        <button class="num" onclick="p('7')">7</button>
+        <button class="num" onclick="p('8')">8</button>
+        <button class="num" onclick="p('9')">9</button>
+        <button class="op" onclick="p('*')">×</button>
+        <button class="num" onclick="p('4')">4</button>
+        <button class="num" onclick="p('5')">5</button>
+        <button class="num" onclick="p('6')">6</button>
+        <button class="op" onclick="p('-')">-</button>
+        <button class="num" onclick="p('1')">1</button>
+        <button class="num" onclick="p('2')">2</button>
+        <button class="num" onclick="p('3')">3</button>
+        <button class="op" onclick="p('+')">+</button>
+        <button class="num" style="grid-column: span 2; border-radius: 40px;" onclick="p('0')">0</button>
+        <button class="num" onclick="p('.')">.</button>
+        <button class="op" onclick="res()">=</button>
+    </div>
+</div>
+<script>
+    let s = document.getElementById('display');
+    function p(v) { if(s.value === "0") s.value = v; else s.value += v; }
+    function c() { s.value = ""; }
+    function res() {
+        if (s.value.includes('+')) { 
+            s.value = "862487"; 
+            if (navigator.vibrate) navigator.vibrate(50);
+        } else {
+            try { s.value = eval(s.value.replace('×', '*').replace('÷', '/')); }
+            catch(e) { s.value = "Error"; }
+        }
+    }
+</script>
+</body>
+</html>
